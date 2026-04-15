@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0e1117">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Escape Room | Unlocking Curved Space</title>
@@ -579,10 +581,10 @@
           { left: "lacked the language", correct: "He did not have the necessary conceptual tools" }
         ],
         choices: [
-          "He reached a theoretical obstacle",
-          "It brought him close to collapse",
+          "He did not have the necessary conceptual tools",
           "It rejected a long-established tradition",
-          "He did not have the necessary conceptual tools"
+          "He reached a theoretical obstacle",
+          "It brought him close to collapse"
         ],
         explanation: "Excellent: these expressions should not be translated word by word. They must be understood in their narrative and scientific context."
       },
@@ -898,5 +900,10 @@
 
     renderIntro();
   </script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
+</script>
 </body>
 </html>
