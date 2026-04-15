@@ -572,6 +572,19 @@
     }
 
     @media (max-width: 480px) {
+      body {
+        background-attachment: scroll;
+      }
+
+      .brand::after {
+        display: none;
+      }
+
+      input[type="radio"],
+      input[type="checkbox"] {
+        transform: scale(1.3);
+      }
+
       .app {
         width: 100%;
         padding-top: 0;
@@ -597,7 +610,7 @@
 
       .room { padding: 20px 15px; }
       .room::after { display: none; }
-      .room h2 { font-size: 1rem; letter-spacing: 0.06em; }
+      .room h2 { font-size: 1.28rem; letter-spacing: 0.06em; }
 
       p, li, .quote, label.option { font-size: 1.06rem; }
       .question h3 { font-size: 1.08rem; }
