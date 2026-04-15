@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0e1117">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Escape Room | Unlocking Curved Space</title>
   <style>
     :root {
@@ -24,7 +22,10 @@
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
       margin: 0;
@@ -36,6 +37,8 @@
         radial-gradient(circle at 85% 20%, rgba(216,177,95,0.14), transparent 26%),
         linear-gradient(135deg, #080a0f 0%, #111827 45%, #07080b 100%);
       overflow-x: hidden;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
 
     body::before {
@@ -445,6 +448,21 @@
 
     .hidden { display: none; }
 
+    @media (max-width: 1024px) {
+      .app {
+        width: min(100% - 28px, 900px);
+      }
+
+      main {
+        grid-template-columns: 240px 1fr;
+        gap: 16px;
+      }
+
+      .map { padding: 16px; }
+      .node { grid-template-columns: 34px 1fr; }
+      .node-number { width: 34px; height: 34px; }
+    }
+
     @media (max-width: 820px) {
       .app {
         width: min(100% - 22px, 680px);
@@ -457,7 +475,7 @@
 
       .brand { padding: 18px; border-radius: 18px; }
       .brand::after { font-size: 32px; right: 8px; bottom: 4px; opacity: 0.8; }
-      h1 { font-size: clamp(2rem, 11vw, 3rem); }
+      h1 { font-size: clamp(1.8rem, 10vw, 3rem); }
       .subtitle { font-size: 0.98rem; }
 
       .hud {
@@ -471,7 +489,7 @@
 
       .map {
         position: static;
-        padding: 14px;
+        padding: 12px;
         border-radius: 18px;
       }
 
@@ -483,14 +501,17 @@
         overflow-x: auto;
         gap: 8px;
         margin-top: 0;
-        padding-bottom: 3px;
+        padding-bottom: 4px;
         scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
       }
 
       .node {
         min-width: 158px;
         grid-template-columns: 32px 1fr;
         padding: 9px;
+        scroll-snap-align: start;
       }
 
       .node-number {
@@ -515,10 +536,63 @@
       .question h3 { font-size: 0.98rem; }
       label.option { padding: 13px; font-size: 0.95rem; }
       .match-row { grid-template-columns: 1fr; }
-      select { min-height: 46px; }
+      select, input[type="text"] { min-height: 46px; font-size: 16px; }
 
       .buttons { display: grid; grid-template-columns: 1fr; }
       button { width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .app {
+        width: calc(100% - 14px);
+        padding-top: 8px;
+      }
+
+      .brand,
+      .map,
+      .room,
+      .hud-card {
+        border-radius: 16px;
+      }
+
+      .brand { padding: 15px; }
+      h1 { font-size: clamp(1.65rem, 12vw, 2.45rem); letter-spacing: 0.01em; }
+      .subtitle { font-size: 0.93rem; line-height: 1.42; }
+
+      .hud-label { font-size: 0.68rem; letter-spacing: 0.08em; }
+      .hud-value { font-size: 0.95rem; }
+
+      .node { min-width: 138px; }
+      .node-title { font-size: 0.8rem; }
+      .node-small { font-size: 0.68rem; }
+
+      .room { padding: 13px; }
+      .room::after { display: none; }
+      .room h2 { font-size: 1rem; letter-spacing: 0.06em; }
+
+      p, li, .quote, label.option { font-size: 0.93rem; }
+      .question h3 { font-size: 0.94rem; }
+      .question { padding: 12px; }
+      .quote { border-left-width: 3px; }
+      .mission, .prize-box, .learning-summary { padding: 13px; }
+
+      .final-code {
+        padding: 18px 10px;
+        letter-spacing: 0.08em;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hud { grid-template-columns: 1fr; }
+      .node { min-width: 128px; }
+      h1 { font-size: 1.55rem; }
+      .subtitle { font-size: 0.9rem; }
+      .badge { font-size: 0.78rem; }
+    }
+
+    @media (hover: none) {
+      label.option:hover { border-color: rgba(255,255,255,0.06); }
+      button, label.option, select { touch-action: manipulation; }
     }
   </style>
 </head>
@@ -900,10 +974,5 @@
 
     renderIntro();
   </script>
-  <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js");
-  }
-</script>
 </body>
 </html>
